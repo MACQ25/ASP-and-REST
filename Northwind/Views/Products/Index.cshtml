@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Northwind.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<form asp-action="Index" method="get">
+    Category:
+    @Html.DropDownList(
+        "categoryId",
+        (IEnumerable<SelectListItem>)ViewBag.CategoryNames,
+        "All Categories",
+        new { onchange = "submit()" }
+    )
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.unitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.unitsInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.unitsOnOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@(item.productId)">@Html.DisplayFor(modelItem => item.productName)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unitsInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unitsOnOrder)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
